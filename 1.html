@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style type="text/css">
+        .bd{border:2px solid orange}
+    </style>
+</head>
+<body>
+<div id="d1" style="background-color: wheat">
+    <img :src="c" style="width:200px;height: 200px;">
+    <ul style="display: inline-block">
+        <li v-for="(item,index) in a" :key="index" :class="{'bd':b==index}" @click="doClick(index)">
+            <p v-html="item.desc"></p>
+        </li>
+    </ul>
+</div>
+<script>
+    new Vue({
+        el:"#d1",
+        data(){
+            return{
+                a:[{desc:'蓝色【三档强劲风力-升级静音版】带底座',imgUrl:'img/1.jpg',imgBigUrl:'img/1.jpg'},
+                    {desc:'粉色【三档强劲风力-升级静音版】带底座',imgUrl:'img/2.jpg',imgBigUrl:'img/2.jpg'},
+                    {desc:'白色【三档强劲风力-升级静音版】带底座',imgUrl:'img/3.jpg',imgBigUrl:'img/3.jpg'},
+                    {desc:'灰色【三档强劲风力-升级静音版】带底座',imgUrl:'img/4.jpg',imgBigUrl:'img/4.jpg'}]
+                    ,
+                b:0,
+                c:'img/1.jpg'
+            }
+        },
+        methods:{
+            doClick(index){
+                this.b = index,
+                    this.c = this.a[index].imgBigUrl
+            }
+        }
+    })
+</script>
+</body>
+</html>

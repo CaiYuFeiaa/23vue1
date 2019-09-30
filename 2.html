@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style type="text/css">
+        *{margin: 0px;padding: 5px;}
+        #t > td{text-align: center}
+        input{width: 15px;}
+    </style>
+</head>
+<body>
+<div id="d2">
+    <table border="2 solid black" style="border-collapse: collapse;">
+        <tr id="t">
+            <td>序号</td>
+            <td>编号</td>
+            <td>名称</td>
+            <td>数量</td>
+            <td>单价</td>
+            <td>移出</td>
+        </tr>
+        <tr v-for="(item,index) in a" :key="index">
+            <td v-html="index+1"></td>
+            <td v-html="item.id"></td>
+            <td v-html="item.name"></td>
+            <td >
+                <button @click="reduce(index)">-</button>
+                <input type="text" :value="item.count">
+                <button @click="add(index)">+</button>
+            </td>
+            <td v-html="item.price"></td>
+            <td><button @click="doClick(index)">删除</button></td>
+        </tr>
+        <tr><td colspan="6">{{total}}</td></tr>
+    </table>
+</div>
+
+<script>
+    new Vue({
+        el:"#d2",
+        data(){
+            return{
+                a:[{id:'0001',name:'iphoneX',count:1,price:6188},
+                    {id:'0002',name:'华为p30',count:2,price:5934},
+                    {id:'0003',name:'小米RedmiBook',count:1,price:4299},
+                    {id:'0004',name:'华为畅享9e',count:3,price:799}]
+                // total:0
+            }
+        },
+        computed:{
+            total(){
+                var all=0;
+                this.a.forEach(function(item,index){
+                    all+=item.count*item.price;
+                })
+                if (all>0)
+                    all='总价为:'+all+'元'
+                else
+                    all='暂无商品'
+                return all;
+            }
+        },
+        methods:{
+            doClick(index){
+                console.log(this.a)
+                this.a[index]='';
+                this.a.splice(index, 1);
+            },
+            reduce(index){
+                console.log(index);
+                if(this.a[index].count>1)
+                    this.a[index].count--;
+            },
+            add(index){
+                console.log(index);
+                this.a[index].count++;
+            }
+        }
+    })
+</script>
+</body>
+</html>
